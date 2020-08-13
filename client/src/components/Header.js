@@ -3,14 +3,14 @@ import styled from "styled-components";
 
 const HeaderTitle = styled.h1`
   position: absolute;
-  width: 779px;
+  width: 896px;
   height: 118px;
   left: -328px;
-  top: 181.5px;
+  top: 91.5px;
   font-family: Archivo Black;
   font-style: normal;
   font-weight: normal;
-  font-size: 70px;
+  font-size: 100px;
   line-height: 109px;
   color: #f8f8f8;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -26,29 +26,30 @@ const HeaderTitle = styled.h1`
 const HeaderDiv = styled.div`
   display: block;
   position: relative;
-  width: 359px;
+  width: 445px;
   background: #1d5d7d;
   height: 100vh;
 `;
 
 const FakeDiv = styled.div`
-  right: -24vw;
+  right: -16vw;
   position: absolute;
   border-radius: 50%;
   background: #1d5d7d;
   width: 800px;
   height: 800px;
-  top: -15vw;
+  top: -17vw;
 `;
 
 const FakeDiv2 = styled.div`
-    right: -594px;
+        right: -604px;
     position: absolute;
     border-radius: 50%;
     background: #393939;
     width: 800px;
     height: 800px;
-    top: 130px;
+    top: 1px;
+}
 }
 `;
 
