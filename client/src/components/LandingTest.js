@@ -18,15 +18,53 @@ const LandingTest = () => {
 
   const colorList = colors.map((color) => (
     <UlCss>
-      <LiCss>{color.color1}</LiCss>
-      <LiCss>{color.color2}</LiCss>
-      <LiCss>{color.color3}</LiCss>
-      <LiCss>{color.color4}</LiCss>
+      <LiCss>
+        <ListColor1 background={color.color1}>{color.color1}</ListColor1>
+      </LiCss>
+      <LiCss>
+        <ListColor2 background={color.color2}>{color.color2}</ListColor2>
+      </LiCss>
+      <LiCss>
+        <ListColor3 background={color.color3}>{color.color3}</ListColor3>
+      </LiCss>
+      <LiCss>
+        <ListColor4 background={color.color4}>{color.color4}</ListColor4>
+      </LiCss>
     </UlCss>
   ));
 
   return <ListDiv>{colorList}</ListDiv>;
 };
+
+const ListColor1 = styled.div`
+  background: ${(props) => props.background || "black"};
+    font-size: 23px;
+    padding: 12px 0px;
+}
+}
+`;
+const ListColor2 = styled.div`
+  background: ${(props) => props.background || "black"};
+    font-size: 23px;
+    padding: 12px 0px;
+}
+}
+`;
+const ListColor3 = styled.div`
+  background: ${(props) => props.background || "black"};
+    font-size: 23px;
+    padding: 12px 0px;
+}
+}
+`;
+const ListColor4 = styled.div`
+  background: ${(props) => props.background || "black"};
+    font-size: 23px;
+    padding: 12px 0px;
+}
+}
+`;
+
 const ListDiv = styled.div`
   flex-direction: row;
   display: flex;
@@ -35,7 +73,13 @@ const ListDiv = styled.div`
   position: relative;
   top: 59vh;
   z-index: 2;
-    right: -10vw;
+    right: -20vw;
+        flex-wrap: wrap;
+    display: flex;
+    width: fit-content;
+}
+    
+    
 }
 
 
@@ -48,18 +92,18 @@ const UlCss = styled.ul`
   font-size: 15px;
   color: white;
   font-weight: 400;
-  margin-right: 93px;
-  height: 170px;
-  width: 130px;
+  margin-right: 60px;
+  height: 257px;
+  width: 198px;
   box-shadow: 13px 17px 4px rgba(0, 0, 0, 0.25);
   border-radius: 24px;
 `;
 
 const LiCss = styled.li`
   transform: translateX(-18px);
-  color: #393939;
+  color: white;
   font-weight: bold;
-  font-size: 23px;
+  font-size: 31px;
 `;
 
 export default LandingTest;
