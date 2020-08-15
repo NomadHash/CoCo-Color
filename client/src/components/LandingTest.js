@@ -1,7 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const textFade = keyframes`
+
+0% {
+    display: block;  
+    opacity: 0;
+  }
+  50% {
+      display: block;  
+    opacity: 1;
+  }
+  100% {
+      display: none;  
+    opacity: 0;
+  }
+ 
+`;
 
 const LandingTest = () => {
   const [colors, setColors] = useState([]);
@@ -9,7 +36,7 @@ const LandingTest = () => {
   // Axios get Palettes
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api")
+      .get("http://192.168.0.5:3001/api")
       .then((response) => listRender(response.data));
   }, []);
 
@@ -28,22 +55,53 @@ const LandingTest = () => {
     <UlCss>
       <LiCss>
         <ListColor1 background={color.color1}>
-          <ColorCode>{color.color1}</ColorCode>
+          {/* <ColorCode> */}
+          <CopyToClipboard text={color.color1}>
+            <Wrapper>
+              <ColorCode>{color.color1}</ColorCode>
+              <CopyMesg>
+                Copied!<Square></Square>
+              </CopyMesg>
+            </Wrapper>
+          </CopyToClipboard>
+
+          {/* </ColorCode> */}
         </ListColor1>
       </LiCss>
       <LiCss>
         <ListColor2 background={color.color2}>
-          <ColorCode>{color.color2}</ColorCode>
+          <CopyToClipboard text={color.color2}>
+            <Wrapper>
+              <ColorCode>{color.color2}</ColorCode>
+              <CopyMesg>
+                Copied!<Square></Square>
+              </CopyMesg>
+            </Wrapper>
+          </CopyToClipboard>
         </ListColor2>
       </LiCss>
       <LiCss>
         <ListColor3 background={color.color3}>
-          <ColorCode>{color.color3}</ColorCode>
+          <CopyToClipboard text={color.color3}>
+            <Wrapper>
+              <ColorCode>{color.color3}</ColorCode>
+              <CopyMesg>
+                Copied!<Square></Square>
+              </CopyMesg>
+            </Wrapper>
+          </CopyToClipboard>
         </ListColor3>
       </LiCss>
       <LiCss>
         <ListColor4 background={color.color4} mouseOn={"s"}>
-          <ColorCode>{color.color4}</ColorCode>
+          <CopyToClipboard text={color.color4}>
+            <Wrapper>
+              <ColorCode>{color.color4}</ColorCode>
+              <CopyMesg>
+                Copied!<Square></Square>
+              </CopyMesg>
+            </Wrapper>
+          </CopyToClipboard>
         </ListColor4>
       </LiCss>
       <LikeDiv>
@@ -101,6 +159,7 @@ const ListDiv = styled.div`
   flex-wrap: wrap;
   display: flex;
   margin-left: 80px;
+  animation: ${boxFade} 2.2s forwards;
 `;
 
 const UlCss = styled.ul`
@@ -164,19 +223,58 @@ const LikeText = styled.h2`
   margin-left: 6px;
 `;
 
-const ColorCode = styled.h3`
+const ColorCode = styled.button`
   opacity: 0;
   margin: 0;
   font-size: 15px;
   font-weight: 400;
-  /* background: rgba(0,0,0,-0.8); */
+  color: white;
   box-shadow: 0px 6px 9px rgba(0, 0, 0, 0.25);
   top: 31px;
   padding: 10px 170px 0px 1px;
   background: rgba(0, 0, 0, 0.15);
+  border: none;
+  width: -webkit-fill-available;
+  outline: none;
+
   &:hover {
-    opacity: 1;
+    animation: ${boxFade} 0.6s forwards;
   }
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+  }
+`;
+
+const CopyMesg = styled.div`
+  height: 14px;
+    display: none;
+    position: absolute;
+    -webkit-transform: translate(86px,-5px);
+    -ms-transform: translate(86px,-5px);
+    transform: translate(86px,-5px);
+    background: #2c394f;
+    padding: 7px 13px 4px 9px;
+    border-radius: 7px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
+}
+`;
+
+const Wrapper = styled.div`
+  & ${ColorCode}:focus + ${CopyMesg} {
+    display: block;
+    animation: ${textFade} 1s forwards;
+  }
+`;
+
+const Square = styled.div`
+  top: -28px;
+  transform: rotate(45deg);
+  background: #2c394f;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  right: -5px;
 `;
 
 export default LandingTest;

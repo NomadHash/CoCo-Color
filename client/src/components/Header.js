@@ -28,26 +28,6 @@ const HeaderDiv = styled.div`
   z-index: 2;
 `;
 
-const FakeDiv = styled.div`
-  right: -12vw;
-  position: absolute;
-  border-radius: 50%;
-  background: #1d5d7d;
-  width: 1000px;
-  height: 1000px;
-  top: -25vw;
-`;
-
-const FakeDiv2 = styled.div`
-  right: -601px;
-  position: absolute;
-  border-radius: 50%;
-  background: #393939;
-  width: 801px;
-  height: 870px;
-  top: -83px;
-`;
-
 const Header = () => {
   return (
     <HeaderDiv>
