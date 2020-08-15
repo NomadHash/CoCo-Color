@@ -2,33 +2,30 @@ import React from "react";
 import styled from "styled-components";
 
 const HeaderTitle = styled.h1`
-  position: absolute;
+  margin: 0;
   width: 896px;
-  height: 118px;
-  left: -328px;
-  top: 91.5px;
+  height: 33px;
+  left: -191px;
+  /* top: 126.5px; */
   font-family: Archivo Black;
   font-style: normal;
-  font-weight: normal;
-  font-size: 100px;
+  font-weight: lighter;
+  font-size: 25px;
   line-height: 109px;
-  color: #f8f8f8;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  color: #5d5d5d;
+  position: absolute;
+  top: -27px;
 `;
 
 const HeaderDiv = styled.div`
+  top: 0;
   display: block;
-  position: relative;
-  width: 445px;
-  background: #1d5d7d;
-  height: 100vh;
+  position: fixed;
+  width: 100vw;
+  background: #ffffff;
+  box-shadow: 13px 1px 5px rgba(0, 0, 0, 0.25);
+  height: 57px;
+  z-index: 2;
 `;
 
 const FakeDiv = styled.div`
@@ -54,8 +51,8 @@ const FakeDiv2 = styled.div`
 const Header = () => {
   return (
     <HeaderDiv>
-      <FakeDiv></FakeDiv>
-      <FakeDiv2></FakeDiv2>
+      {/* <FakeDiv></FakeDiv>
+      <FakeDiv2></FakeDiv2> */}
       <HeaderTitle> &lt;coco-Color&gt;</HeaderTitle>
     </HeaderDiv>
   );

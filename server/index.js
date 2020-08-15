@@ -38,3 +38,15 @@ app.get("/api", (req, res) => {
     res.send(result);
   });
 });
+
+app.put("/api/Pallette/:palettId", function (req, res) {
+  Palette.update({ _id: req.params.palettId }, { $set: req.body }, function (
+    err,
+    output
+  ) {
+    if (err) res.status(500).json({ error: "database failure" });
+    console.log(output);
+    if (!output.n) return res.status(404).json({ error: "book not found" });
+    res.json({ message: "book updated" });
+  });
+});
