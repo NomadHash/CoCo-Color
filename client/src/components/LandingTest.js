@@ -4,58 +4,37 @@ import styled, { keyframes } from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const boxFade = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const textFade = keyframes`
-
-0% {
-    display: block;  
-    opacity: 0;
-  }
-  50% {
-      display: block;  
-    opacity: 1;
-  }
-  100% {
-      display: none;  
-    opacity: 0;
-  }
- 
-`;
-
 const LandingTest = () => {
   const [colors, setColors] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const virtualLikes = [...likes];
 
   // Axios get Palettes
   useEffect(() => {
-    axios
-      .get("http://192.168.0.5:3001/api")
-      .then((response) => listRender(response.data));
+    axios.get("http://192.168.0.5:3001/api").then((response) => {
+      setColors(response.data);
+      setLikes(
+        response.data.map((data) => {
+          return data.likes;
+        })
+      );
+    });
   }, []);
 
-  const likeUp = () => {
+  const likeUp = (id, currentLikes, idx) => {
     axios
-      .put("http://localhost:3001/api/Pallette/5f34af7505410330087de0b7", {
-        likes: 2,
+      .put(`http://localhost:3001/api/Pallette/${id}`, {
+        likes: currentLikes + 1,
       })
-      .then(console.log("like!"));
-  };
-  const listRender = (paletteList) => {
-    setColors(paletteList);
+      .then(console.log(likes))
+      .then(virtualLikes.splice(idx, 1, currentLikes + 1))
+      .then(setLikes(virtualLikes));
   };
 
-  const colorList = colors.map((color) => (
-    <UlCss>
+  const colorList = colors.map((color, idx) => (
+    <UlCss key={color._id}>
       <LiCss>
         <ListColor1 background={color.color1}>
-          {/* <ColorCode> */}
           <CopyToClipboard text={color.color1}>
             <Wrapper>
               <ColorCode>{color.color1}</ColorCode>
@@ -64,8 +43,6 @@ const LandingTest = () => {
               </CopyMesg>
             </Wrapper>
           </CopyToClipboard>
-
-          {/* </ColorCode> */}
         </ListColor1>
       </LiCss>
       <LiCss>
@@ -105,9 +82,9 @@ const LandingTest = () => {
         </ListColor4>
       </LiCss>
       <LikeDiv>
-        <ButtonCss onClick={likeUp}>
+        <ButtonCss onClick={() => likeUp(color._id, color.likes, idx)}>
           <AiFillHeart />
-          <LikeText>{color.likes}</LikeText>
+          <LikeText>{likes[idx]}</LikeText>
         </ButtonCss>
       </LikeDiv>
     </UlCss>
@@ -115,6 +92,32 @@ const LandingTest = () => {
 
   return <ListDiv>{colorList}</ListDiv>;
 };
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const textFade = keyframes`
+
+0% {
+    display: block;  
+    opacity: 0;
+  }
+  50% {
+      display: block;  
+    opacity: 1;
+  }
+  100% {
+      display: none;  
+    opacity: 0;
+  }
+ 
+`;
 
 const ListColor1 = styled.div`
   background: ${(props) => props.background || "black"};
