@@ -25,6 +25,9 @@ const paletteSchema = mongoose.Schema({
     type: Number,
     maxlength: 1000,
   },
+  liked: {
+    type: Boolean,
+  },
 });
 
 const Palette = mongoose.model("Palette", paletteSchema);

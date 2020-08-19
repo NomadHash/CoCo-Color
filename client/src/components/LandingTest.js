@@ -4,21 +4,30 @@ import styled, { keyframes } from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
+let localLiked = [];
+
 const LandingTest = () => {
   const [colors, setColors] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [liked, setLiked] = useState([]);
   const virtualLikes = [...likes];
+  const virtualColors = [...colors];
 
-  // Axios get Palettes
-  useEffect(() => {
-    axios.get("http://192.168.0.5:3001/api").then((response) => {
+  const getPaletts = () => {
+    axios.get("http://localhost:3001/api").then((response) => {
       setColors(response.data);
       setLikes(
         response.data.map((data) => {
           return data.likes;
         })
       );
+      setLiked(JSON.parse(localStorage.getItem("coco")));
     });
+  };
+
+  // Axios get Palettes
+  useEffect(() => {
+    getPaletts();
   }, []);
 
   const likeUp = (id, currentLikes, idx) => {
@@ -26,9 +35,11 @@ const LandingTest = () => {
       .put(`http://localhost:3001/api/Pallette/${id}`, {
         likes: currentLikes + 1,
       })
-      .then(console.log(likes))
       .then(virtualLikes.splice(idx, 1, currentLikes + 1))
       .then(setLikes(virtualLikes));
+
+    localLiked.push(id);
+    localStorage.setItem("coco", JSON.stringify(localLiked));
   };
 
   const colorList = colors.map((color, idx) => (
@@ -70,7 +81,7 @@ const LandingTest = () => {
         </ListColor3>
       </LiCss>
       <LiCss>
-        <ListColor4 background={color.color4} mouseOn={"s"}>
+        <ListColor4 background={color.color4}>
           <CopyToClipboard text={color.color4}>
             <Wrapper>
               <ColorCode>{color.color4}</ColorCode>
@@ -82,7 +93,10 @@ const LandingTest = () => {
         </ListColor4>
       </LiCss>
       <LikeDiv>
-        <ButtonCss onClick={() => likeUp(color._id, color.likes, idx)}>
+        <ButtonCss
+          onClick={() => likeUp(color._id, color.likes, idx)}
+          style={{ color: color.liked ? " #d54062" : "#1d2737" }}
+        >
           <AiFillHeart />
           <LikeText>{likes[idx]}</LikeText>
         </ButtonCss>
@@ -175,8 +189,8 @@ const UlCss = styled.ul`
   margin-right: 20px;
   height: 275px;
   width: 232px;
-  box-shadow: 4px 5px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 14px;
+  box-shadow: 0px 1px 19px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   padding: 4px 17px;
 `;
 
@@ -190,7 +204,7 @@ const ButtonCss = styled.button`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: none;
   width: 65px;
-  color: #ff4f4f;
+  color: #1d2737;
   border-radius: 7px;
   background: none;
   font-size: 19px;
@@ -206,6 +220,12 @@ const ButtonCss = styled.button`
     box-shadow: 0 2px grey;
     transform: translateY(3px);
   }
+
+  &:focus {
+    color: #d54062;
+  }
+
+  
 `;
 
 const LikeDiv = styled.div`
@@ -218,7 +238,7 @@ const LikeDiv = styled.div`
 `;
 
 const LikeText = styled.h2`
-  color: #353535;
+  color: #1d2737;
   font-size: 17px;
   font-weight: 600;
   position: relative;
