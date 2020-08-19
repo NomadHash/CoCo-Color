@@ -4,14 +4,12 @@ import styled, { keyframes } from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-let localLiked = [];
-
 const LandingTest = () => {
   const [colors, setColors] = useState([]);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState([]);
   const virtualLikes = [...likes];
-  const virtualColors = [...colors];
+  let virtualLiked = [];
 
   const getPaletts = () => {
     axios.get("http://localhost:3001/api").then((response) => {
@@ -21,13 +19,23 @@ const LandingTest = () => {
           return data.likes;
         })
       );
-      setLiked(JSON.parse(localStorage.getItem("coco")));
+      // setLiked(JSON.parse(localStorage.getItem(1)));
     });
+  };
+
+  const getLocalData = () => {
+    let arr = [];
+    const keys = Object.keys(localStorage);
+    for (let i = 0; i < localStorage.length; i++) {
+      arr.push(JSON.parse(localStorage.getItem(keys[i])));
+    }
+    setLiked(arr);
   };
 
   // Axios get Palettes
   useEffect(() => {
     getPaletts();
+    getLocalData();
   }, []);
 
   const likeUp = (id, currentLikes, idx) => {
@@ -38,8 +46,9 @@ const LandingTest = () => {
       .then(virtualLikes.splice(idx, 1, currentLikes + 1))
       .then(setLikes(virtualLikes));
 
-    localLiked.push(id);
-    localStorage.setItem("coco", JSON.stringify(localLiked));
+    localStorage.setItem(idx, JSON.stringify([idx, id]));
+    let rs = virtualLiked.concat(JSON.parse(localStorage.getItem(idx)));
+    setLiked(rs);
   };
 
   const colorList = colors.map((color, idx) => (
