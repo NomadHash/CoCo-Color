@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import img from "./1.png";
+import img from "./static/1.png";
 
 const ExplationDiv = styled.div`
   width: 18vw;

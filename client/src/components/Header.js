@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import logoImg from "./static/2.jpg";
 
 const HeaderTitle = styled.h1`
   margin: 0;
@@ -28,11 +29,17 @@ const HeaderDiv = styled.div`
   z-index: 2;
 `;
 
+const LogoImg = styled.img`
+  margin-top: 6px;
+  left: 114px;
+  width: 48px;
+  position: fixed;
+`;
+
 const Header = () => {
   return (
     <HeaderDiv>
-      {/* <FakeDiv></FakeDiv>
-      <FakeDiv2></FakeDiv2> */}
+      <LogoImg src={logoImg} />
       <HeaderTitle> &lt;coco-Color&gt;</HeaderTitle>
     </HeaderDiv>
   );

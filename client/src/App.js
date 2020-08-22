@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Explanation from "./components/Explanation";
-import LandingTest from "./components/LandingTest";
+import PalettesArea from "./components/PalettesArea";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -18,7 +18,7 @@ function App() {
       <GlobalStyle />
       <div className="App">
         <Explanation />
-        <LandingTest />
+        <PalettesArea />
         <Header />
       </div>
     </>
