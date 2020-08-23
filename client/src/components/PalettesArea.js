@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Palette from "./Palette";
 
-const LandingTest = () => {
+const PalettesArea = () => {
   useEffect(() => {
     getPaletts();
   }, []);
@@ -38,4 +38,4 @@ const ListDiv = styled.div`
   display: flex;
 `;
 
-export default LandingTest;
+export default PalettesArea;
