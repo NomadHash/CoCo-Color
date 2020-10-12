@@ -5,15 +5,21 @@ import { AiFillHeart } from "react-icons/ai";
 import ColorList from "./ColorList";
 
 const Palette = (color) => {
-  const [userLikes, setUserLikes] = useState([]);
-  const { _id, color1, color2, color3, color4, likes } = color.color;
+  const { _id, color1, color2, color3, color4, likes, liked } = color.color;
+  const [paletteLiked, setPaletteLiked] = useState(liked);
+
+  // useEffect(() => {
+  //   setPaletteLiked(liked);
+  // }, []);
 
   const likeUp = (id, currentLikes) => {
     axios
       .put(`http://localhost:3001/api/Pallette/${id}`, {
         likes: currentLikes + 1,
       })
-      .then(console.log(userLikes));
+      .catch((err) => console.log(err))
+      .then(setPaletteLiked(!liked))
+      .then(color.color);
   };
 
   return (

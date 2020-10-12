@@ -33,6 +33,7 @@ app.listen(port || 5000, () => console.log(`Express Server on PORT ${port}`));
 // REST-ROUTE
 
 app.get("/api", (req, res) => {
+  console.log("LOAD_COLOR_PALETTE");
   Palette.find({}, function (err, result) {
     if (err) return console.log(err);
     res.send(result);

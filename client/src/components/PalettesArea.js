@@ -13,6 +13,7 @@ const PalettesArea = () => {
   const getPaletts = () => {
     axios.get("http://localhost:3001/api").then((response) => {
       setColors(response.data);
+      console.log(response.data);
     });
   };
 
